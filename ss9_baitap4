@@ -1,0 +1,84 @@
+#include <stdio.h>
+
+int main(){
+	int n, sizeArray, addIndex, newElement;
+	int array[100];
+	
+	do{
+	printf("MENU\n1.Nhap vao mang\n2.Hien thi mang\n3.Them phan tu\n4.Sua phan tu\n5.xoa phan tu\n6.Thoat\nChon: ");	
+	scanf("%d", &n);	
+	switch(n){
+		case 1:
+			do{
+			printf("nhap so phan tu trong mang[0; 100]: ");
+			scanf("%d", &sizeArray);	
+			}while(sizeArray < 0 || sizeArray > 100);
+			for(int i = 0; i < sizeArray; i ++){
+				printf("array[%d]=", i);
+				scanf("%d", &array[i]);
+			}
+			break;	
+		case 2:
+			for (int i = 0; i < sizeArray; i++){
+			printf("array[%d]=%d\n", i, array[i]);	
+			}
+			break;	
+		case 3:
+			do{
+				printf("nhap vi tri muon them trong khoan [0; 100]: ");
+				scanf("%d", &addIndex);
+			}while(addIndex < 0 || addIndex > 100);
+			printf("nhap gia tri muon them: ");
+			scanf("%d", &newElement);
+			
+			if(addIndex>= sizeArray){
+				sizeArray = addIndex + 1;	
+			}else{
+				sizeArray += 1;
+				for (int i = sizeArray-1; i >= addIndex; i--){
+					array[i] = array[i-1];
+				}
+			}
+			array[addIndex] = newElement;
+			break;
+		case 4:
+			do{
+				printf("nhap vi tri muon sua[0; 100]: ");
+				scanf("%d", &addIndex);
+			}while(addIndex < 0 || addIndex > 100);
+			
+			printf("nhap gia tri muon sua: ");
+			scanf("%d", &newElement);
+			array[addIndex] = newElement;
+			break;
+		case 5:
+			do{
+				printf("nhap vi tri muon xoa[0; 100]: ");
+				scanf("%d", &addIndex);
+			}while(addIndex < 0 || addIndex > 100);
+			
+			if(addIndex>= sizeArray){
+			}else{
+				sizeArray -= 1;
+				for (int i = addIndex; i < sizeArray; i++){
+					array[i] = array[i+1];
+				}
+				array[sizeArray] = 0;
+				/*
+				array = 1, 2, 4, 57, 7
+				xoa array[3] = 4
+				array[3] = 57
+				array[4] = 7
+				=>	array = 1, 2, 57, 7, 7
+				array[sizeArray] = 0
+				=>	array = 1, 2, 57, 7
+				*/
+			}
+			break;	
+		default:
+			break;	
+								
+	}	
+	}while(n!=6);
+	return 0;
+}
