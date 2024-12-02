@@ -1,0 +1,107 @@
+#include <stdio.h>
+#include <math.h>
+int isPrime(int num) {
+    if (num <= 1) {
+        return 0; 
+    }
+    for (int i = 2; i <= sqrt(num); i++) {
+        if (num % i == 0) {
+            return 0;
+        }
+    }
+    return 1; 
+}
+int main(){
+	int n, sizeArray, addIndex, newElement, tong, maxElement, minElement, loopElement;
+	int array[100];
+	
+	do{
+	printf("MENU\n1.Nhap so phan tu can nhap va gia tri\n2.in ra cac phan tu dang quan ly\n3.in ra cac phan tu chan va tinh tong\n4.in ra gia tri lon nhat va nhat trong mang\n5.in ra cac phan tu la so nguyen trong mang va tinh tong\n6.nhap vao mot so va thong ke trong mang co bao nhieu phan tu do\n7.them mot phan tu vao vi tri chi dinh\n8.Thoat\nChon: ");	
+	scanf("%d", &n);	
+	switch(n){
+		case 1:
+			do{
+			printf("nhap so phan tu trong mang[0; 100]: ");
+			scanf("%d", &sizeArray);	
+			}while(sizeArray < 0 || sizeArray > 100);
+			for(int i = 0; i < sizeArray; i ++){
+				printf("array[%d]=", i);
+				scanf("%d", &array[i]);
+			}
+			break;	
+		case 2:
+			for (int i = 0; i < sizeArray; i++){
+			printf("array[%d]=%d\n", i, array[i]);	
+			}
+			break;	
+		case 3:
+			tong = 0;
+			for (int i = 0; i < sizeArray; i++){
+				if(array[i] % 2 == 0){
+					printf("array[%d]=%d\n", i, array[i]);
+					tong += array[i];
+				}
+			}
+			printf("tong = %d\n", tong);
+		
+			break;
+		case 4:
+			maxElement = array[0];
+			minElement = array[0];
+			for (int i = 0; i < sizeArray; i++){
+				if(maxElement < array[i]){
+					maxElement = array[i];
+				}
+				if(minElement > array[i]){
+					minElement = array[i];
+				}
+			}
+			printf("gia tri lon nhat la: %d\ngia tri nho nhat la: %d\n", maxElement, minElement);
+			break;
+		case 5:
+			tong = 0;
+			printf("cac so nguyen to trong mang\n");
+			for (int i = 0; i < n; i++) {
+        		if (isPrime(array[i])) {
+            		printf("array[%d]=%d\n", i, array[i]); 
+           			tong += array[i];
+        		}
+    		}
+    		printf("tong = %d\n", tong);
+			break;
+		case 6:
+			loopElement = 0;
+			printf("nhap mot so nguyen ngau nhien: ");
+			scanf("%d", &addIndex);
+			for (int i = 0; i < n; i++) {
+        		if (addIndex== array[i]) {
+           			loopElement += 1;
+        		}
+    		}
+    		printf("trong mang co %d phan tu %d\n", loopElement, addIndex);
+			break;
+		case 7:	
+			do{
+				printf("nhap vi tri muon them trong khoan [0; 100]: ");
+				scanf("%d", &addIndex);
+			}while(addIndex < 0 || addIndex > 100);
+			printf("nhap gia tri muon them: ");
+			scanf("%d", &newElement);
+			
+			if(addIndex>= sizeArray){
+				sizeArray = addIndex + 1;	
+			}else{
+				sizeArray += 1;
+				for (int i = sizeArray-1; i >= addIndex; i--){
+					array[i] = array[i-1];
+				}
+			}
+			array[addIndex] = newElement;
+			break;
+		default:
+			break;	
+								
+	}	
+	}while(n!=8);
+	return 0;
+}
